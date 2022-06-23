@@ -1,0 +1,24 @@
+package com.evs.vtiger.marketing;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+
+import com.aventstack.extentreports.ExtentTest;
+import com.evs.vtiger.generic.GenericMethod;
+import com.evs.vtiger.loginPage.LoginPage;
+
+public class Marketing {
+	public GenericMethod gm;
+	public void vtVerifyLead(ExtentTest extTestObj) {
+		LoginPage lPage = new LoginPage();
+		lPage.loginPage(extTestObj);
+		WebElement weMarketing=lPage.driver.findElement(By.xpath("//a[text()='Marketing']"));
+		Actions act=new Actions(lPage.driver);
+		act.moveToElement(weMarketing).build().perform();
+		gm.click(lPage.driver, "//div[@id='Marketing_sub']//a[text()='Leads']", "Element is clickable", extTestObj);
+		
+		
+	}
+}

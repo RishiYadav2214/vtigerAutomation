@@ -1,0 +1,28 @@
+package com.evs.vtiger.testcase;
+
+import org.testng.annotations.Test;
+import com.evs.vtiger.home.HomePage;
+import com.evs.vtiger.marketing.leads.CampaignCreatePage;
+import com.evs.vtiger.marketing.leads.CampaignLandingPage;
+
+public class ValidateLeadFunctionality extends BasePage {
+	@Test(groups = { "smoke" })
+	public void validateValidLogin() {
+		HomePage hPage = new HomePage(gm);
+		hPage.mouseOverOnMarketing();
+		hPage.logOut();
+	}
+
+	@Test(groups = { "sanity" })
+	public void validateCreateCampaign() {
+		
+		HomePage hPage = new HomePage(gm);
+		hPage.gotoCampaigns();
+		CampaignLandingPage campLandPage = new CampaignLandingPage(gm);
+		campLandPage.createcampaignButton();
+		CampaignCreatePage campCreatePage = new CampaignCreatePage(gm);
+		campCreatePage.campaignTotalInfo();
+		
+
+	}
+}

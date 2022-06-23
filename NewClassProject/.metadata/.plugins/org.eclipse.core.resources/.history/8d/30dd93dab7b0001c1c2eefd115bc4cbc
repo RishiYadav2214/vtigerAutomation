@@ -1,0 +1,13 @@
+package com.evs.vtiger.marketing;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class Marketing {
+	WebDriver driver;
+	public void vtVerifyLead() {
+		WebElement weMarketing=driver.findElement(By.xpath("//a[text()='Marketing']"));
+		
+	}
+}

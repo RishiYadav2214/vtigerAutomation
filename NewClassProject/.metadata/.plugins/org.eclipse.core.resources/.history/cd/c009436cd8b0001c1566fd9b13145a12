@@ -1,0 +1,42 @@
+package com.evs.vtiger.marketing;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.evs.vtiger.loginPage.LoginPage;
+
+public class Marketing {
+
+	public void vtVerifyLead(ExtentTest extTestObj) {
+		LoginPage lPage = new LoginPage();
+		lPage.loginPage(extTestObj);
+		WebElement weMarketing = lPage.driver.findElement(By.xpath("//a[text()='Marketing']"));
+		Actions act = new Actions(lPage.driver);
+		act.moveToElement(weMarketing).build().perform();
+		WebElement weLead = lPage.driver.findElement(By.xpath("//div[@id='Marketing_sub']//a[text()='Leads']"));
+		weLead.click();
+		String actualLeadText = lPage.driver.findElement(By.xpath("//a[@class='hdrLink']")).getText();
+		System.out.println(actualLeadText);
+		String expectedLeadText="Lead";
+		if (actualLeadText.equalsIgnoreCase(expectedLeadText)) {
+			extTestObj.log(Status.PASS,"Lead Page Header Text Validation is passed. Where actualText-"+actualLeadText+" & expectedText-"+expectedLeadText);
+			
+		} else {
+			extTestObj.log(Status.FAIL,"Lead Page Header Text Validation is failed. Where actualText-"+actualLeadText+" & expectedText-"+expectedLeadText);
+
+
+		}
+		String  actualSearchHeaderText= lPage.driver.findElement(By.xpath("//form[@name='basicSearch']")).getText();
+		System.out.println(actualSearchHeaderText);
+		String expectedSearchHeaderText="Search";
+		if (actualSearchHeaderText.equalsIgnoreCase(expectedSearchHeaderText)) {
+			extTestObj.log(Status.PASS,"Search Header Text Validation is passed. Where actualText-"+actualLeadText+" & expectedText-"+expectedLeadText);
+		} else {
+
+		}
+	
+	}
+}

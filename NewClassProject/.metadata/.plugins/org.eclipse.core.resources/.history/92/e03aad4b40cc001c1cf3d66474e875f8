@@ -1,0 +1,65 @@
+package com.evs.vtiger.testcases;
+
+import java.io.IOException;
+
+import org.testng.annotations.Test;
+
+import com.evs.vtiger.pages.home.HomePage;
+import com.evs.vtiger.pages.marketing.leads.LeadsLandingPage;
+import com.evs.vtiger.pages.marketing.leads.VerifyDeleteNewLeads;
+import com.evs.vtiger.pages.marketing.campaings.CampaingsCreatePage;
+import com.evs.vtiger.pages.marketing.leads.LeadsCreatePage;
+import com.evs.vtiger.pages.marketing.leads.LeadsDetailsPage;
+
+public class ValidateLeadsFunctionality extends BasePage {
+	
+	
+
+
+	@Test(groups = { "smoke" })
+	public void validateValidLogin() throws IOException {
+		new HomePage(webUtil).verifyHomePage();
+
+	}
+
+	@Test(groups = { "smoke", "regression" },priority= 2)
+	public void validateCreateLeads() throws IOException {
+
+
+		HomePage homePage = new HomePage(webUtil);
+		homePage.gotoMarketingLeads();
+		LeadsLandingPage leadsLandingPg = new LeadsLandingPage(webUtil);
+		leadsLandingPg.clickCreateLeadBtn();
+		LeadsCreatePage leadsCreatePage = new LeadsCreatePage(webUtil, dataMap);
+		leadsCreatePage.enterLeadsTotaleInfo();
+		leadsCreatePage.saveLeads();
+
+		LeadsDetailsPage weVerifyDetail = new LeadsDetailsPage(webUtil);
+		String expLdHedDe = dataMap.get("expLeadHederDetail");
+		weVerifyDetail.verifyLeadsDetailHeader(expLdHedDe);
+		String expLastName = dataMap.get("LastName_ED");
+		weVerifyDetail.verifyLastName(expLastName);
+		String expCompanyName = dataMap.get("CompanyName_ED");
+		weVerifyDetail.verifyCompanyName(expCompanyName);
+	}
+
+	@Test(groups ={"5"})
+	public void validateCreateCampaings() throws IOException {
+
+		HomePage homePage = new HomePage(webUtil);
+		homePage.gotoCampaings();
+		CampaingsCreatePage camCrePg = new CampaingsCreatePage(webUtil, dataMap);
+		camCrePg.enterMandetaryInfo();
+		camCrePg.saveCampaigns();
+		new BasePage().afterTestCase();
+
+	}
+
+	@Test(groups = "retesting")
+	public void validateDeleteLeads() throws IOException {
+		VerifyDeleteNewLeads vdnl = new VerifyDeleteNewLeads(webUtil, dataMap);
+		vdnl.verifyDeleteLeads();
+
+	}
+
+}

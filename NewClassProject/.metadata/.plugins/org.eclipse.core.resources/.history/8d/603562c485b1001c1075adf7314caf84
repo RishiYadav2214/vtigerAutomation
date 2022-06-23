@@ -1,0 +1,74 @@
+package com.evs.vtiger.generic;
+
+import java.util.NoSuchElementException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+
+
+public class GenericMethod {
+	
+	
+	public void launchBrowser() {
+	
+		System.setProperty("webdriver.chrome.driver", "Driver\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("http://localhost:8888/");
+
+	}
+
+	public void click(WebDriver driver, String xpath, String Msg, ExtentTest extTest) {
+		WebElement webEle;
+		try {
+			webEle = driver.findElement(By.xpath(xpath));
+
+		} catch (NoSuchElementException e) {
+			
+			
+			webEle = driver.findElement(By.xpath(xpath));
+
+		}
+		try {
+			webEle.click();
+		} catch (StaleElementReferenceException e) {
+			webEle = driver.findElement(By.xpath(xpath));
+		} catch (ElementNotInteractableException e) {
+		}
+		extTest.log(Status.INFO, Msg);
+	}
+		
+	
+
+
+	public void sendKeys(WebDriver driver, String xpath, String inputValue, String Msg, ExtentTest extTest) {
+		WebElement webEle;
+		try {
+			webEle = driver.findElement(By.xpath(xpath));
+
+		} catch (NoSuchElementException e) {
+			try {
+				Thread.sleep(20000);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+			webEle = driver.findElement(By.xpath(xpath));
+
+		}
+		try {
+			webEle.clear();
+			webEle.sendKeys(inputValue);
+		} catch (StaleElementReferenceException e) {
+			webEle = driver.findElement(By.xpath(xpath));
+		} catch (ElementNotInteractableException e) {
+		}
+		extTest.log(Status.INFO, Msg);
+	}
+}

@@ -1,0 +1,19 @@
+package snippet;
+
+public class Snippet {
+	/POM Framework
+	com.evs.vtiger.home
+	com.evs.vtiger.homePage.or
+	com.evs.vtiger.listeners
+	com.evs.vtiger.log4j
+	com.evs.vtiger.login
+	com.evs.vtiger.login.or
+	com.evs.vtiger.marketing
+	com.evs.vtiger.marketing.campaign
+	com.evs.vtiger.marketing.campaignOr
+	com.evs.vtiger.marketing.commonOr
+	com.evs.vtiger.sales.account
+	com.evs.vtiger.sales.accountOr
+	com.evs.vtiger.webUtil
+}
+
